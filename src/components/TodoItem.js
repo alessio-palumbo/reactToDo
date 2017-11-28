@@ -10,12 +10,8 @@ function TodoItem({
   displayInput,
   edit = false
 }) {
-  let emoji = ''
-  if (completed === false) {
-    emoji = '❌'
-  } else {
-    emoji = '✅'
-  }
+  let emoji = null
+  completed === false ? emoji = '❌' : emoji = '✅'
 
   let input = null
   if (edit === false && description !== '') {
@@ -35,26 +31,11 @@ function TodoItem({
       <button
         completed={completed}
         onClick={(event) => onToggleCompleted()}
-
       >
         {emoji}
       </button>
       {input}
     </div>
-
-    /* <label>
-        <input
-          type="checkbox"
-          checked={completed}
-          onChange={
-            (event) => {
-              console.log('Toggled', description)
-              onToggleCompleted()
-            }
-          }
-        />
-        {description}
-      </label> */
   )
 }
 

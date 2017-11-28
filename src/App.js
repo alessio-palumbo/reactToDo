@@ -2,14 +2,15 @@ import React, { Component } from 'react'
 import './App.css'
 import TodoItem from './components/TodoItem'
 import TodoItemsStatus from './components/TodoItemsStatus'
+import NewToDoItem from './components/NewTodoItem'
 
 class App extends Component {
   state = {
     items: [
-      { description: 'First', completed: true, edit: false },
-      { description: 'Second', completed: true, edit: false },
-      { description: 'Third', completed: false, edit: false },
-      { description: 'Fourth', completed: false, edit: false },
+      { description: 'Wash dishes', completed: true },
+      { description: 'Prepare Lunch', completed: true },
+      { description: 'Go to the gym', completed: false },
+      { description: 'Fourth', completed: false },
     ]
   }
 
@@ -34,19 +35,9 @@ class App extends Component {
     })
   }
 
-  filterCompletedItems() {
+  itemsCompletedStatus(value) {
     return this.state.items.map(item => {
-      if (item.completed === true) {
-        return item
-      } else {
-        return null
-      }
-    })
-  }
-
-  filterIncompleteItems() {
-    return this.state.items.map(item => {
-      if (item.completed === false) {
+      if (item.completed === value) {
         return item
       } else {
         return null
@@ -131,11 +122,11 @@ class App extends Component {
         <h2>TODO LIST</h2>
         <TodoItemsStatus total={total} incomplete={totalIncomplete} />
 
-        <div class="container">
-          <div class="col completed">
+        <div className="container">
+          <div className="col completed">
             <p>Completed: {totalCompleted}</p>
             {
-              this.filterCompletedItems().map((item, index) => {
+              this.itemsCompletedStatus(true).map((item, index) => {
                 if (item !== null) {
                   return (
                     <TodoItem
@@ -154,10 +145,10 @@ class App extends Component {
               })
             }
           </div>
-          <div class='col incomplete'>
+          <div className='col incomplete'>
             <p>Incomplete: {totalIncomplete}</p>
             {
-              this.filterIncompleteItems().map((item, index) => {
+              this.itemsCompletedStatus(false).map((item, index) => {
                 if (item !== null) {
                   return (
                     <TodoItem
@@ -176,6 +167,9 @@ class App extends Component {
             }
           </div>
         </div>
+        <hr />
+        <NewToDoItem />
+
       </div>
     )
   }
